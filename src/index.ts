@@ -16,6 +16,7 @@ app.post("/webhook", async (req, res) => {
 
   const before = req.body.before;
   const after = req.body.after;
+  const commitMessage = req.body.head_commit?.message || "";
 
   const repo = req.body.repository.full_name;
 
@@ -40,7 +41,7 @@ app.post("/webhook", async (req, res) => {
 
     console.log(parsed);
 
-    const memory = await generateEngineeringMemory(parsed);
+    const memory = await generateEngineeringMemory(parsed, commitMessage);
 
     console.log("\n====== ENGINEERING MEMORY ======\n");
 

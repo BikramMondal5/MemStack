@@ -1,27 +1,30 @@
 import Groq from "groq-sdk";
 
-export async function generateEngineeringMemory(parsedDiff: any) {
+export async function generateEngineeringMemory(
+  parsedDiff: any,
+  commitMessage = ""
+) {
   try {
     const groq = new Groq({
       apiKey: process.env.GROQ_API_KEY,
     });
 
-    const prompt = `
-You are an AI Engineering Memory System.
+    const systemPrompt = process.env.GROQ_SYSTEM_PROMPT;
 
-Analyze the following structured git diff data and generate concise engineering memory.
+    if (!systemPrompt) {
+      throw new Error("GROQ_SYSTEM_PROMPT is not configured.");
+    }
+
+    const prompt = `${systemPrompt}
+
+Commit Message:
+${commitMessage || "Not provided"}
+
+Changed Files:
+${parsedDiff.files.map((file: any) => file.file).join(", ") || "None"}
 
 Structured Diff:
 ${JSON.stringify(parsedDiff, null, 2)}
-
-Generate:
-1. Summary
-2. Engineering Impact
-3. Risk Level
-4. Affected Files
-5. Recommended Follow-up
-
-Keep response concise, professional, and useful for future IDE AI agents.
 `;
 
     const completion = await groq.chat.completions.create({
