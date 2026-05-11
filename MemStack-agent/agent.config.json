@@ -1,0 +1,21 @@
+{
+  "name": "MemStack-agent",
+  "description": "MemStack-agent agent",
+  "version": "0.1.0",
+  "category": "general",
+  "tags": [],
+  "registry_url": "https://zns01.zynd.ai",
+  "server_host": "0.0.0.0",
+  "server_port": 5000,
+  "auth_mode": "permissive",
+  "entity_index": 1,
+  "skills": [
+    {
+      "id": "default",
+      "name": "MemStack-agent",
+      "description": "MemStack-agent's primary capability — replace this with what your agent actually does.",
+      "tags": [],
+      "examples": []
+    }
+  ]
+}
