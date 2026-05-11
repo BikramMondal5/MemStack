@@ -4,6 +4,7 @@ import axios from "axios";
 import { parseGitDiff } from "./parser";
 import { generateEngineeringMemory } from "./ai";
 import { saveToNotion } from "./notion";
+import { renderMarkdown } from "./markdown";
 
 dotenv.config();
 
@@ -45,7 +46,7 @@ app.post("/webhook", async (req, res) => {
 
     console.log("\n====== ENGINEERING MEMORY ======\n");
 
-    console.log(memory);
+    console.log(renderMarkdown(memory || ""));
 
     await saveToNotion(memory || "", parsed);
 

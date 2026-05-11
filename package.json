@@ -16,10 +16,13 @@
     "axios": "^1.16.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "groq-sdk": "^1.2.0"
+    "groq-sdk": "^1.2.0",
+    "marked": "^15.0.12",
+    "marked-terminal": "^7.3.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
+    "@types/marked-terminal": "^6.1.1",
     "@types/node": "^25.6.2",
     "nodemon": "^3.1.14",
     "ts-node": "^10.9.2",
