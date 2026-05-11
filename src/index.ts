@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import axios from "axios";
+import { parseGitDiff } from "./parser";
+import { generateEngineeringMemory } from "./ai";
 
 dotenv.config();
 
@@ -31,10 +33,17 @@ app.post("/webhook", async (req, res) => {
     );
 
     const diff = diffResponse.data;
+    const parsed = parseGitDiff(diff);
 
-    console.log("\n====== GIT DIFF ======\n");
+    console.log("\n====== PARSED DIFF ======\n");
 
-    console.log(diff);
+    console.log(parsed);
+
+    const memory = await generateEngineeringMemory(parsed);
+
+    console.log("\n====== ENGINEERING MEMORY ======\n");
+
+    console.log(memory);
 
   } catch (err) {
     console.error(err);
