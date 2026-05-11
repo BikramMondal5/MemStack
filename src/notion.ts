@@ -1,14 +1,14 @@
 import { Client } from "@notionhq/client";
 
-const notion = new Client({
-  auth: process.env.NOTION_TOKEN,
-});
-
 export async function saveToNotion(
   memory: string,
   parsed: any
 ) {
   try {
+    const notion = new Client({
+      auth: process.env.NOTION_TOKEN,
+    });
+
     await notion.pages.create({
       parent: {
         database_id: process.env.NOTION_DATABASE_ID!,
@@ -37,7 +37,10 @@ export async function saveToNotion(
 
         Risk: {
           select: {
-            name: parsed.insertions > 20 ? "Medium" : "Low",
+            name:
+              parsed.insertions > 20
+                ? "Medium"
+                : "Low",
           },
         },
 
@@ -61,9 +64,9 @@ export async function saveToNotion(
       },
     });
 
-    console.log("\nSaved to Notion successfully.\n");
+    console.log("\n✅ Saved to Notion successfully.\n");
 
   } catch (error) {
-    console.error("Notion Error:", error);
+    console.error("\n❌ Notion Error:\n", error);
   }
 }
