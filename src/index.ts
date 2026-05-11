@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import axios from "axios";
 import { parseGitDiff } from "./parser";
 import { generateEngineeringMemory } from "./ai";
+import { saveToNotion } from "./notion";
 
 dotenv.config();
 
@@ -44,6 +45,8 @@ app.post("/webhook", async (req, res) => {
     console.log("\n====== ENGINEERING MEMORY ======\n");
 
     console.log(memory);
+
+    await saveToNotion(memory || "", parsed);
 
   } catch (err) {
     console.error(err);
